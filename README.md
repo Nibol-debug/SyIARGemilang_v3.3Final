@@ -271,3 +271,60 @@ SyIARGemilang_v3.3Final/
 5. **PPDB Online:** Sistem pendaftaran siswa baru terintegrasi, seleksi berkala, dan automasi konversi data calon siswa menjadi siswa aktif setelah disetujui.
 
 ```
+
+---
+
+## 📸 Preview & Antarmuka Aplikasi
+
+Berikut adalah dokumentasi visual dari modul-modul utama yang tersedia di dalam **Syiar Gemilang ERP**:
+
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="50%" align="center">
+        <img src="screenshots/1.jpg" alt="Landing Page Publik" width="100%"/>
+        <br/><sub><b>Landing Page Publik & Integrasi Fitur</b></sub>
+      </td>
+      <td width="50%" align="center">
+        <img src="screenshots/2.png" alt="Portal Login" width="100%"/>
+        <br/><sub><b>Gerbang Autentikasi Sistem (Secure Login)</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" align="center">
+        <img src="screenshots/3.png" alt="Formulir PPDB Online" width="100%"/>
+        <br/><sub><b>Formulir Pendaftaran PPDB Online 2026</b></sub>
+      </td>
+      <td width="50%" align="center">
+        <img src="screenshots/4.png" alt="Dashboard Utama ERP" width="100%"/>
+        <br/><sub><b>Pusat Kendali Operasional & Statistik Utama Admin</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" align="center">
+        <img src="screenshots/5.png" alt="Manajemen Data Siswa" width="100%"/>
+        <br/><sub><b>Panel Manajemen Data Induk & Status Siswa aktif</b></sub>
+      </td>
+      <td width="50%" align="center">
+        <img src="screenshots/6.png" alt="Manajemen Kepegawaian HRM" width="100%"/>
+        <br/><sub><b>Dashboard HRM, Presensi Staf, & Evaluasi Kinerja</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" align="center">
+        <img src="screenshots/7.png" alt="Manajemen Akademik" width="100%"/>
+        <br/><sub><b>Manajemen Kurikulum, Jadwal, & Jurnal Mengajar</b></sub>
+      </td>
+      <td width="50%" align="center">
+        <img src="screenshots/8.png" alt="Modul Ujian CBT" width="100%"/>
+        <br/><sub><b>Pusat Pelaksanaan & Monitoring Ujian Online (CBT)</b></sub>
+      </td>
+    </tr>
+  </table>
+  <div style="margin-top: 10px; width: 100%;">
+    <img src="screenshots/9.png" alt="Cetak Rapor Digital" width="100%"/>
+    <br/><sub><b>Modul Penilaian & Cetak E-Rapor Kurikulum Merdeka (PDF)</b></sub>
+  </div>
+</div>
+
+---
