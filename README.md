@@ -270,9 +270,6 @@ SyIARGemilang_v3.3Final/
 4. **Inventaris Sarpras via QR-Code:** Pencatatan aset sekolah beserta fitur peminjaman serta pelacakan kondisi fisik menggunakan *scan* kode QR.
 5. **PPDB Online:** Sistem pendaftaran siswa baru terintegrasi, seleksi berkala, dan automasi konversi data calon siswa menjadi siswa aktif setelah disetujui.
 
-```
-
----
 
 ## 📸 Preview & Antarmuka Aplikasi
 
@@ -282,7 +279,7 @@ Berikut adalah dokumentasi visual dari modul-modul utama yang tersedia di dalam 
   <table style="width: 100%; border-collapse: collapse;">
     <tr>
       <td width="50%" align="center">
-        <img src="screenshots/1.jpg" alt="Landing Page Publik" width="100%"/>
+        <img src="screenshots/1.png" alt="Landing Page Publik" width="100%"/>
         <br/><sub><b>Landing Page Publik & Integrasi Fitur</b></sub>
       </td>
       <td width="50%" align="center">
