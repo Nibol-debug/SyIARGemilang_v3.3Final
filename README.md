@@ -1,331 +1,273 @@
 # Syiar Gemilang — Sistem Informasi Akademik & ERP Sekolah
 
-Sistem ERP terintegrasi untuk **Rumah Gemilang Indonesia** — mengelola siswa, pegawai, akademik, keuangan, aset, dan ujian online (±1300 siswa).
+Sistem ERP terintegrasi untuk **Rumah Gemilang Indonesia (RGI)** yang dirancang untuk mengelola data siswa, pegawai, akademik, keuangan, aset, serta pelaksanaan ujian online (CBT) secara real-time.
 
 ---
 
-## Tech Stack
+## 🚀 Tech Stack
 
 | Layer | Teknologi |
-|-------|-----------|
+| :--- | :--- |
 | **Backend** | NestJS + Prisma ORM + MySQL |
 | **Frontend** | Next.js 16 + React 19 + Tailwind CSS |
 | **Auth** | JWT (Passport) + RBAC + Permission Guard |
 | **Database** | MySQL 8 (`syiar_gemilang`) |
 | **Maps** | Leaflet + LocationIQ API |
-| **Orkestrasi** | PM2 (backend port `3001`, frontend port `3002`) |
+| **Process Manager** | PM2 (Backend port `3001`, Frontend port `3002`) |
 
 ---
 
-## Prasyarat
+## 📋 Prasyarat Sistem
 
-- Node.js ≥ 18
-- npm ≥ 9
-- MySQL 8
-- PM2 (`npm install -g pm2`)
+Sebelum memulai, pastikan perangkat atau server Anda sudah terinstal:
+* Node.js ≥ 18
+* npm ≥ 9
+* MySQL 8
+* PM2 (`npm install -g pm2`) *[Opsional untuk Production]*
 
 ---
 
-## Cara Install & Jalankan (Panduan Lengkap)
+## 🛠️ Panduan Instalasi & Menjalankan Aplikasi
 
-### 1. Ekstrak Project
-
+### 1. Clone & Masuk ke Direktori Project
 ```bash
-unzip delivery-package.zip -d /home/syiargemilang.web.id
-cd /home/syiargemilang.web.id
+git clone [https://github.com/Nibol-debug/SyIARGemilang_v3.3Final.git](https://github.com/Nibol-debug/SyIARGemilang_v3.3Final.git)
+cd SyIARGemilang_v3.3Final
+
 ```
 
-### 2. Setup Backend
+### 2. Setup Database (MySQL)
 
-```bash
-cd api
-cp .env.example .env   # lalu edit isi .env-nya
-nano .env
+Masuk ke terminal MySQL Anda dan jalankan perintah berikut untuk membuat database beserta user barunya:
+
+```sql
+CREATE DATABASE IF NOT EXISTS syiar_gemilang;
+CREATE USER IF NOT EXISTS 'syiar_user'@'localhost' IDENTIFIED BY 'password_kamu_di_sini';
+GRANT ALL PRIVILEGES ON syiar_gemilang.* TO 'syiar_user'@'localhost';
+FLUSH PRIVILEGES;
+
 ```
 
-Isi file `.env`:
+---
+
+### 3. Konfigurasi & Menjalankan Backend (NestJS)
+
+1. Masuk ke direktori backend:
+```bash
+cd "backend (NestJS)"
+
+```
+
+
+2. Salin file environment dan sesuaikan konfigurasinya:
+```bash
+cp .env.example .env
+
+```
+
+
+Buka file `.env` dan sesuaikan nilainya:
 ```env
-DATABASE_URL="mysql://syiar_user:password@localhost:3306/syiar_gemilang"
+DATABASE_URL="mysql://syiar_user:password_kamu_di_sini@localhost:3306/syiar_gemilang"
 PORT=3001
 JWT_SECRET="ganti-dengan-string-acak-yang-aman"
-LOCATIONIQ_API_KEY="isi-dari-locationiq"
+LOCATIONIQ_API_KEY="isi-dengan-api-key-locationiq-anda"
+
 ```
 
-Install dependencies:
+
+3. Install dependencies:
 ```bash
 npm install
+
 ```
 
-### 3. Setup Frontend
 
+4. Sinkronisasi skema Prisma dan lakukan Seeding data awal:
 ```bash
-cd ../public_html
-cp .env.example .env.local   # lalu edit
-nano .env.local
-```
-
-Isi file `.env.local`:
-```env
-NEXT_PUBLIC_API_URL=/api/v1
-NEXT_PUBLIC_LOCATIONIQ_API_KEY="isi-dari-locationiq"
-```
-
-Install dependencies:
-```bash
-npm install
-```
-
-### 4. Setup Database
-
-Buat database MySQL:
-```bash
-mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS syiar_gemilang;"
-mysql -u root -p -e "CREATE USER IF NOT EXISTS 'syiar_user'@'localhost' IDENTIFIED BY 'password';"
-mysql -u root -p -e "GRANT ALL PRIVILEGES ON syiar_gemilang.* TO 'syiar_user'@'localhost'; FLUSH PRIVILEGES;"
-```
-
-Sinkronisasi schema Prisma ke database:
-```bash
-cd ../api
 npx prisma db push
-```
-
-### 5. Seed Data Awal
-
-```bash
 npm run seed
+
 ```
 
-Perintah ini akan mengisi:
-- Role & Permission (Admin, Kepala Sekolah, Instruktur, Wali Kelas, Bendahara, Staf Sarpras, Siswa, Orang Tua)
-- Akun admin default
-- Branch (cabang sekolah)
-- Jurusan (TKJ, DBS, DG, dll)
-- Angkatan (batch)
-- Kelas
 
-### 6. Jalankan (Development)
-
-**Terminal 1 — Backend:**
+5. Jalankan backend dalam mode development:
 ```bash
-cd /home/syiargemilang.web.id/api
 npm run start:dev
-```
-→ API berjalan di `http://localhost:3001/api/v1`
 
-**Terminal 2 — Frontend:**
+```
+
+
+> 🖥️ **API URL:** `http://localhost:3001/api/v1`
+
+
+
+---
+
+### 4. Konfigurasi & Menjalankan Frontend (Next.js)
+
+1. Buka terminal baru dan masuk ke direktori frontend dari akar project:
 ```bash
-cd /home/syiargemilang.web.id/public_html
+cd "frontend (next.js)"
+
+```
+
+
+2. Salin file environment:
+```bash
+cp .env.example .env.local
+
+```
+
+
+Buka file `.env.local` dan sesuaikan nilainya:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
+NEXT_PUBLIC_LOCATIONIQ_API_KEY="isi-dengan-api-key-locationiq-anda"
+
+```
+
+
+3. Install dependencies:
+```bash
+npm install
+
+```
+
+
+4. Jalankan frontend dalam mode development:
+```bash
 npm run dev
-```
-→ Web berjalan di `http://localhost:3000`
 
-### 7. Jalankan (Production)
+```
+
+
+> 🌐 **Web App URL:** `http://localhost:3000`
+
+
+
+---
+
+## 🔑 Akun Akses Default (Setelah Seeding)
+
+Setelah proses `npm run seed` selesai dijalankan di backend, Anda dapat masuk menggunakan akun administrator berikut:
+
+| Role | Username | Password |
+| --- | --- | --- |
+| **Admin Utama** | `admin` | `admin123` |
+
+> ⚠️ **PENTING:** Demi keamanan, segera ganti password default ini pada halaman profil setelah Anda berhasil login untuk pertama kalinya.
+
+---
+
+## 🚀 Deployment ke Lingkungan Production (Menggunakan PM2)
+
+Jika Anda ingin melakukan deploy aplikasi ini di server VPS menggunakan PM2, ikuti langkah-balik berikut:
+
+### Build & Start Backend
 
 ```bash
-# Build backend
-cd /home/syiargemilang.web.id/api
+cd "backend (NestJS)"
 npm run build
-pm2 start dist/main.js --name api
+pm2 start dist/main.js --name "syiar-backend"
 
-# Build frontend
-cd /home/syiargemilang.web.id/public_html
+```
+
+### Build & Start Frontend
+
+```bash
+cd "../frontend (next.js)"
 npm run build
-pm2 start npm --name frontend-syiar -- start -- -p 3002
+pm2 start npm --name "syiar-frontend" -- start -- -p 3002
 
-# Simpan daftar PM2 biar auto-restart kalau server reboot
+```
+
+### Menyimpan Proses PM2
+
+Agar aplikasi otomatis menyala kembali ketika server melakukan reboot/restart:
+
+```bash
 pm2 save
 pm2 startup
+
 ```
 
-### 8. Login
-
-Buka `http://localhost:3000/login` (atau sesuai domain kamu).
-
-**Akun default setelah seed:**
-| Role | Username | Password |
-|------|----------|----------|
-| Admin Utama | `admin` | `admin123` |
-
-> **Catatan:** Ganti password segera setelah pertama login!
-
 ---
 
-## Cara Pakai (User Guide)
+## 💡 Perintah Cepat & Troubleshoot (Cheat Sheet)
 
-### Untuk Admin
-
-1. **Login** sebagai admin
-2. **Dashboard** → Lihat statistik ringkasan sekolah
-3. **Manajemen User** → Tambah/atur role & permission pengguna
-4. **Master Data** → Atur jurusan, angkatan, kelas, cabang
-
-### Untuk Manajemen Siswa
-
-1. Buka menu **Students**
-2. **Tambah Siswa Baru** — isi form atau import dari Excel
-3. **Bulk Promote** — naikkan kelas siswa massal
-4. **Upload Foto** — upload foto profil per siswa
-5. **Export Excel** — download data siswa
-
-### Untuk Ujian Online (CBT)
-
-1. Buka menu **CBT**
-2. **Buat Ujian Baru** — atur judul, durasi, token, kelas peserta
-3. **Tambah Soal** — dari bank soal atau buat manual (MCQ/Essay)
-4. **Monitoring** — pantau siswa mengerjakan ujian secara real-time
-5. **Lihat Pelanggaran** — cek siapa yang terkena warning/force-submit
-
-### Untuk Penilaian & Rapor
-
-1. Buka menu **Grading**
-2. **Input Nilai** — pilih kelas & mapel, input nilai harian/UTS/UAS
-3. **Finalisasi Nilai** — hitung nilai akhir berdasarkan bobot
-4. **Cetak Rapor** — preview & download PDF E-Rapor
-
-### Untuk PPDB Online
-
-1. Buka halaman publik `/ppdb` — calon siswa daftar online
-2. Admin buka **PPDB Admin** — verifikasi berkas, setujui/tolak
-3. Calon siswa diterima → otomatis terdaftar sebagai siswa aktif
-
-### Untuk Keuangan
-
-1. Buka menu **Finance**
-2. **Buat Tagihan (Fee)** — SPP bulanan/biaya lain
-3. **Input Pembayaran** — catat pembayaran siswa (tunai/transfer)
-4. **Kirim Pengingat** — notifikasi ke siswa yang belum bayar
-
-### Untuk Inventaris
-
-1. Buka menu **Assets**
-2. **Tambah Aset** — isi data barang, cetak QR Code
-3. **Peminjaman** — catat peminjaman & pengembalian
-4. **Stock Opname** — update kondisi aset via scan QR
-
----
-
-## Perintah Cepat (Cheat Sheet)
-
+* **Melihat Log Aplikasi via PM2:**
 ```bash
-# Backend rebuild + restart
-cd /home/syiargemilang.web.id/api && npm run build && pm2 restart api
+pm2 logs syiar-backend
+pm2 logs syiar-frontend
 
-# Frontend rebuild + restart
-cd /home/syiargemilang.web.id/public_html && npm run build && pm2 restart frontend-syiar
+```
 
-# Sync database setelah ubah schema
-cd /home/syiargemilang.web.id/api && npx prisma db push && pm2 restart api
 
-# Melihat log
-pm2 logs api
-pm2 logs frontend-syiar
-
-# Status PM2
+* **Mengecek Status Proses PM2:**
+```bash
 pm2 status
 
-# Reset ulang database (hati-hati! data hilang)
-cd /home/syiargemilang.web.id/api && npx prisma db push --force-reset && npm run seed
 ```
 
----
 
-## Struktur Direktori
-
-```
-/home/syiargemilang.web.id/
-├── api/                      # Backend NestJS
-│   ├── src/                  # Source code (35+ modules)
-│   │   ├── auth/             # JWT auth, guards, strategies
-│   │   ├── common/           # Decorators, filters, interceptors
-│   │   └── .../              # Per-module: controller, service, dto
-│   ├── prisma/
-│   │   ├── schema.prisma     # Database schema (45 models)
-│   │   └── seed.ts           # Data seeder
-│   ├── uploads/              # File uploads
-│   └── dist/                 # Build output
-│
-├── public_html/              # Frontend Next.js
-│   ├── app/                  # Pages (App Router)
-│   │   ├── (dashboard)/      # Dashboard pages (protected)
-│   │   ├── login/            # Halaman login
-│   │   └── ppdb/             # PPDB publik
-│   ├── components/           # Shared React components
-│   ├── lib/                  # Utilities, API client, hooks
-│   └── .next/                # Build output
-│
-├── PROPOSAL.md               # Proposal pengembangan
-├── STRUKTUR_APLIKASI.md      # Dokumentasi struktur aplikasi detail
-└── README.md                 # File ini
-```
-
----
-
-## Modul & Route
-
-| Modul | Route Prefix | Halaman |
-|-------|-------------|---------|
-| Auth | `/auth` | Login, logout, profile |
-| Dashboard | `/dashboard` | Statistik ringkasan |
-| Students | `/students` | CRUD siswa, import/export, upload foto |
-| HRM | `/hrm` | Pegawai, presensi, cuti, payroll, PKG |
-| Academic | `/academic` | Mapel, jadwal, absensi, jurnal, kalender |
-| CBT | `/cbt` | Ujian online, bank soal, monitoring |
-| Grading | `/grading` | Input nilai, analisis, remedial, rapor |
-| PPDB | `/ppdb-admin`, `/ppdb` | Pendaftaran online & admin |
-| Finance | `/finance` | Tagihan & pembayaran |
-| Assets | `/assets` | Inventaris & peminjaman |
-| Batches | `/batches` | Manajemen angkatan |
-| Majors | `/majors` | Manajemen jurusan |
-| Classes | `/classes` | Manajemen kelas |
-| Users | `/users` | User, role, permission, audit log |
-| Notifications | `/notifications` | Notifikasi sistem |
-| Reports | `/reports` | Laporan akademik & keuangan |
-| Settings | `/settings` | Pengaturan sistem |
-
----
-
-## Troubleshooting
-
-### "Terjadi kesalahan database" saat buat ujian
+* **Sinkronisasi Ulang Database (Jika Mengubah Skema Prisma):**
 ```bash
-cd /home/syiargemilang.web.id/api
+cd "backend (NestJS)"
 npx prisma db push
-pm2 restart api
+pm2 restart syiar-backend
+
 ```
 
-### Total pegawai/siswa tampil 0 padahal ada data
-Pastikan versi terbaru `AnimatedCounter.tsx` digunakan (dengan `prevTarget` ref).
 
-### Frontend error 500 setelah build baru
+* **Reset Total Database (Hati-hati, Semua Data Akan Hilang):**
 ```bash
-cd /home/syiargemilang.web.id/public_html
-rm -rf .next
-npm run build
-pm2 restart frontend-syiar
+cd "backend (NestJS)"
+npx prisma db push --force-reset
+npm run seed
+
 ```
 
-### Login gagal terus
-- Cek kredensial di database (bcrypt hash)
-- Cek rate limit: tunggu 60 detik setelah 5 percobaan
-- Cek log: `pm2 logs api`
 
-### Port sudah dipakai
+* **Mengatasi Port Bentrok (`3001` / `3002`):**
 ```bash
-# Cek proses di port
+# Cek PID proses yang berjalan di port terkait
 lsof -i :3001
-lsof -i :3002
 
-# Kill proses
-kill -9 <PID>
+# Matikan proses menggunakan PID-nya
+kill -9 <PID_PROSES>
+
+```
+
+
+
+---
+
+## 📁 Struktur Repositori
+
+```text
+SyIARGemilang_v3.3Final/
+├── backend (NestJS)/         # Source code Backend API
+│   ├── src/                  # Modul aplikasi (Auth, CBT, HRM, Finance, dll)
+│   ├── prisma/               # Skema ORM & Script Seeder database
+│   └── uploads/              # Penyimpanan file asset statis
+├── frontend (next.js)/       # Source code Frontend (Next.js App Router)
+│   ├── app/                  # Router Halaman (Dashboard, Login, PPDB)
+│   ├── components/           # Komponen UI global reusable
+│   └── lib/                  # State management, API Client & Hooks
+├── PROPOSAL.md               # Proposal pengembangan sistem
+└── STRUKTUR_APLIKASI.md      # Dokumentasi modul & arsitektur aplikasi rinci
+
 ```
 
 ---
 
-## Catatan Penting
+## ⭐ Fitur Utama Sistem
 
-- **Upload files** disimpan di `backend/uploads/` dan disajikan via `/uploads/`
-- **Database migration** menggunakan `prisma db push`
-- **Rate limit**: 10 request/60 detik global; 5 percobaan login/60 detik
-- **LocationIQ API key** disimpan di backend `.env` (tidak bocor ke frontend)
-- **Anti-Cheat CBT**: Fullscreen mode, tab switch detection, auto-submit on violation
+1. **Computer Based Test (CBT):** Fitur anti-contek lengkap dengan deteksi pindah tab (*tab-switching detection*), mode *fullscreen* paksa, serta otomatis kumpul (*auto-submit*) jika terdeteksi pelanggaran berturut-turut.
+2. **Manajemen Akademik & E-Rapor:** Pencatatan absensi, penulisan jurnal mengajar instruktur, penilaian berkala, hingga cetak rapor PDF.
+3. **Modul Finansial:** Manajemen tagihan SPP bulanan, pencatatan transaksi kas masuk/keluar, dan laporan tunggakan.
+4. **Inventaris Sarpras via QR-Code:** Pencatatan aset sekolah beserta fitur peminjaman serta pelacakan kondisi fisik menggunakan *scan* kode QR.
+5. **PPDB Online:** Sistem pendaftaran siswa baru terintegrasi, seleksi berkala, dan automasi konversi data calon siswa menjadi siswa aktif setelah disetujui.
+
+```
